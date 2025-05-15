@@ -36,6 +36,18 @@ export default class MyPlugin extends Plugin {
 				new SampleModal(this.app).open();
 			}
 		});
+		 // 注册命令：插入当前时间
+		this.addCommand({
+            id: 'insert-current-time',
+            name: 'Insert current time (HH:MM:SS)',
+            hotkeys: [{ modifiers: ["Ctrl"], key: ";" }], // 绑定快捷键 Ctrl+;
+            editorCallback: (editor: Editor) => {
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('en-US', { hour12: false }); // 格式化为 HH:MM:SS
+                editor.replaceSelection(timeStr); // 插入时间
+            }
+        });
+
 		// This adds an editor command that can perform some operation on the current editor instance
 		this.addCommand({
 			id: 'sample-editor-command',
